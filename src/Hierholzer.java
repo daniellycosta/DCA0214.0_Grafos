@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.Color;
@@ -28,8 +30,16 @@ public class Hierholzer {
     }
     
     private LinkedList<Integer> SearchSimpleCycle(int startVertice){
-    	/*METODO A SER COMPLETADO*/
-        return null;
+    	/*Dani - ta dando errooooo*/
+       LinkedList<Integer> ciclo = new LinkedList<>();
+       ciclo.add(startVertice);
+        
+        if(this.graph.getNeighbours(startVertice) != null){
+            int proxVertice = this.graph.getNeighbours(startVertice).element().getU();
+            this.graph.removeEdge(this.graph.getNeighbours(startVertice).element());
+            SearchSimpleCycle(proxVertice);
+       }
+        return ciclo;
     }
     
     public LinkedList<Integer> SearchEulerianCycle(int startVertice){
@@ -195,6 +205,6 @@ public class Hierholzer {
     
     public static void main(String[] args) {
         Hierholzer instance = new Hierholzer();
-        instance.test4();
+        instance.test5(0);
     }
 }
