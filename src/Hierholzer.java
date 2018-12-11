@@ -45,8 +45,22 @@ public class Hierholzer {
     }
 
     public LinkedList<Integer> SearchEulerianCycle(int startVertice) {
-        /*METODO A SER COMPLETADO*/
-        return null;
+        if (!graph.isEulerian()) {
+            graph.turnEulerian();
+        }
+        eulerianCycle = SearchSimpleCycle(startVertice);
+        int i = 0;
+        do{
+            graph.nEdges--;
+            i++;
+            if (!graph.getNeighbours(i).isEmpty()) {
+                LinkedList<Integer> ciclo = SearchSimpleCycle(eulerianCycle.get(i));
+                ciclo.removeFirst();
+                InsertCycle(ciclo, i);
+        }
+        
+        }while(graph.nEdges > 0);
+        return eulerianCycle;
     }
 
     /**
@@ -207,6 +221,6 @@ public class Hierholzer {
 
     public static void main(String[] args) {
         Hierholzer instance = new Hierholzer();
-        instance.test5(0);
+        instance.test6();
     }
 }
